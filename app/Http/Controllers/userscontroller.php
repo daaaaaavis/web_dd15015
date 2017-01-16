@@ -18,6 +18,6 @@ class userscontroller extends Controller
 	public function store(Request $Request){
 		User::create($Request->all());
 		return 'sucess';
-		return $Request->all();
+		return $Request->all(); 
 	}
 }
