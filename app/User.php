@@ -27,7 +27,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // "Setter" - does stuff when setting value to database
     public function setNameAttribute($value){
         $this->attributes['name'] = ucfirst($value);
     }
+
+    // "Getter" - does stuff when getting value from database
+    public function getNameAttribute($value){
+        return "User: " . $value;
+    }
+
 }

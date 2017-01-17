@@ -9,7 +9,12 @@
 
                 <div class="panel-body">
                     You are logged in!
+                    </br></br>
+                    <button> Ask for additional permission</button>
                 </div>
+
+
+
             </div>
         </div>
     </div>
