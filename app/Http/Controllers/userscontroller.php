@@ -15,9 +15,14 @@ class userscontroller extends Controller
 		return view('admin.users.create');
 	}
 
-	public function store(Request $Request){
-		User::create($Request->all());
+	public function store(Request $request){
+		User::create([
+			//$request->all()
+			'name' => $request['name'],
+			'email' => $request['email'],
+			'password' => bcrypt($request['password']),
+			]);
 		return 'sucess';
-		return $Request->all(); 
+		// return $Request->all(); 
 	}
 }
