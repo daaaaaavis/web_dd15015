@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <h2>Your Awesome Image Sharing Website</h2>
+    <h2>Host your pictures</h2>
 
     {{-- Yield (get the contents of) the section named'content' from the view files --}}
     @yield('content')

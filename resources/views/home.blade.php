@@ -13,16 +13,24 @@
                     <button> Ask for additional permission</button>
 
                     </br></br>
-                    <button type="button" onclick="window.location='{{ route("index_page") }}'"> Image hosting </button>
+                    <a href="images")">
+                        <button>Image hosting</button>
+                    </a>
+                    
 
+                    
                     </br></br>
                     <button disabled> OwnCloud </button> Unfortunately, ownCloud Server does not support Microsoft Windows anymore.
+                    
+                    </br></br>
+                    <a href="http://daav.blogdns.com:32400">
+                    <button>Plex</button>
+                    </a>
 
                     </br></br>
-                    <button> Plex </button>
-
-                    </br></br>
+                    <a href="http://daav.blogdns.com:4040/music">
                     <button> Subsonic </button>
+                    </a>
                 </div>
 
 
