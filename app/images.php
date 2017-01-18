@@ -1,7 +1,9 @@
 <?php
 
+namespace App;
+use Illuminate\Database\Eloquent\Model;
 
-public class Photo extends Eloquent {
+class Photo extends Model {
 
   //the variable that sets the table name
   protected $table = 'photos';

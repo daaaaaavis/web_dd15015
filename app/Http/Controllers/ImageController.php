@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 // use Image; // Alias to Intervention 
 // use App\images\Photo as Photo;
+use App;
 
 class ImageController extends BaseController{
   public function getIndex()
@@ -70,17 +71,17 @@ class ImageController extends BaseController{
       );
 
       //Now we redirect to the image's permalink
-      return Redirect::to(\URL::to('snatch/'.$insert_id))->with('success','Your image is uploadedsuccessfully!');
+      return Redirect::to(\URL::to('snatch/'.$insert_id))->with('success','Your image is uploaded successfully!');
     } else {
       //image cannot be uploaded
-      return Redirect::to('/images')->withInput()->with('error','Sorry, the image could not beuploaded, please try again later');
+      return Redirect::to('/images')->withInput()->with('error','Sorry, the image could not be uploaded, please try again later');
     // }
   }
 }
 
 public function getSnatch($id) {
   //Let's try to find the image from database first
-  $image = \app\images\Photo::find($id);
+  $image = App\images\Photo::find($id);
   //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
   if($image) {
     return View::make('tpl.permalink')->with('image',$image);

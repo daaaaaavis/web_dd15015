@@ -16,7 +16,7 @@
                     <button type="button" onclick="window.location='{{ route("index_page") }}'"> Image hosting </button>
 
                     </br></br>
-                    <button> OwnCloud </button>
+                    <button disabled> OwnCloud </button> Unfortunately, ownCloud Server does not support Microsoft Windows anymore.
 
                     </br></br>
                     <button> Plex </button>
