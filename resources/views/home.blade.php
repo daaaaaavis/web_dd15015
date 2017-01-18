@@ -8,9 +8,21 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    Logged in.
                     </br></br>
                     <button> Ask for additional permission</button>
+
+                    </br></br>
+                    <button type="button" onclick="window.location='{{ route("index_page") }}'"> Image hosting </button>
+
+                    </br></br>
+                    <button> OwnCloud </button>
+
+                    </br></br>
+                    <button> Plex </button>
+
+                    </br></br>
+                    <button> Subsonic </button>
                 </div>
 
 

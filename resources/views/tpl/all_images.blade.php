@@ -4,16 +4,14 @@
 
 @if(count($images))
   <ul>
-
     @foreach($images as $each)
       <li>
-        <a href="{!!URL::to('snatch/'$each->id)!!}">{!!Html::image(Config::get('image.thumb_folder')'/'.$each->image)!!}</a>
+        <a href="{{URL::to('snatch/'$each->id)}}">{{Html::image(Config::get('image.thumb_folder')'/'.$each->image)}}</a>
       </li>
     @endforeach
   </ul> 
   <p>{{$images->links()}}</p>
 @else
-  {{--If no images are found on the database, we will showa no image found error message--}}
-  <p>No images uploaded yet, {!!Html::link('/','care to upload one?')!!}</p>
+  <p>No images uploaded yet, {{Html::link('/','care to upload one?')!!}</p>
 @endif
 @stop

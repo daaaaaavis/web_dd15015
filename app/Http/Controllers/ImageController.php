@@ -7,30 +7,34 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-
-use App\Images;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
+// use Image; // Alias to Intervention 
+// use App\images\Photo as Photo;
 
 class ImageController extends BaseController{
   public function getIndex()
   {
-    //Let's load the form view
+    //Loads the form
     return view('tpl.index');
   }
 
 
-  public function postIndex()
+  public function postIndex() // posting 
 	{
-  
-  //Let's validate the form first with the rules which areset at the model
-  $validation = Validator::make(Input::all(),Photo::$upload_rules);
 
-  //If the validation fails, we redirect the user to theindex page, with the error messages 
+    /*
+  $validation = \Validator::make(Input::all(),Photo::$upload_rules);
+
   if($validation->fails()) {
     return Redirect::to('/')->withInput()->withErrors($validation);
   }
   else {
-
-    //If the validation passes, we upload the image to thedatabase and process it
+    */
+    //Upload the image to thedatabase and process it
     $image = Input::file('image');
 
     //This is the original uploaded client name of theimage
@@ -43,17 +47,22 @@ class ImageController extends BaseController{
     $fullname = Str::slug(Str::random(8).$filename).'.'.$image->getClientOriginalExtension();
 
     //We upload the image first to the upload folder, thenget make a thumbnail from the uploaded image
-    $upload = $image->move(Config::get( 'image.upload_folder'),$fullname);
 
+    $destinationPath =public_path(). '/upload/' .Input::get('folder');
+    $upload = $image->move($destinationPath,$fullname);
+
+    
+    
     //Our model that we've created is named Photo, thislibrary has an alias named Image, don't mix them two!
     //These parameters are related to the image processingclass that we've included, not really related toLaravel
-    Image::make(Config::get( 'image.upload_folder').'/'.$fullname)->resize(Config::get( 'image.thumb_width'),null, true)->save(Config::get( 'image.thumb_folder').'/'.$fullname);
+    
 
+    
     //If the file is now uploaded, we show an error messageto the user, else we add a new column to the databaseand show the success message
     if($upload) {
 
       //image is now uploaded, we first need to add columnto the database
-      $insert_id = DB::table('photos')->insertGetId(
+      $insert_id = \DB::table('photos')->insertGetId(
         array(
           'title' => Input::get('title'),
           'image' => $fullname
@@ -61,17 +70,17 @@ class ImageController extends BaseController{
       );
 
       //Now we redirect to the image's permalink
-      return Redirect::to(URL::to('snatch/'.$insert_id))->with('success','Your image is uploadedsuccessfully!');
+      return Redirect::to(\URL::to('snatch/'.$insert_id))->with('success','Your image is uploadedsuccessfully!');
     } else {
       //image cannot be uploaded
-      return Redirect::to('/')->withInput()->with('error','Sorry, the image could not beuploaded, please try again later');
-    }
+      return Redirect::to('/images')->withInput()->with('error','Sorry, the image could not beuploaded, please try again later');
+    // }
   }
 }
 
 public function getSnatch($id) {
   //Let's try to find the image from database first
-  $image = Photo::find($id);
+  $image = \app\images\Photo::find($id);
   //If found, we load the view and pass the image info asparameter, else we redirect to main page with errormessage
   if($image) {
     return View::make('tpl.permalink')->with('image',$image);
